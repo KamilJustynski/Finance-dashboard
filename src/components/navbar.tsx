@@ -9,56 +9,50 @@ import {
   ArrowTrendingUpIcon,
   Cog6ToothIcon,
 } from "@heroicons/react/24/outline";
-import { usePathname } from "next/navigation";
 
 export default function NavBar() {
-  // const links = [
-  //   { name: "dashboard", href: "/dashboard", icon: ChartBarIcon },
-  //   {
-  //     name: "transaction",
-  //     href: "/dashboard/transaction",
-  //     icon: CreditCardIcon,
-  //   },
-  //   { name: "budget", href: "/budget", icon: WalletIcon },
-  //   { name: "analysis", href: "/analysis", icon: ArrowTrendingUpIcon },
-  //   { name: "settings", href: "/settings", icon: Cog6ToothIcon },
-  //   { name: "logout", href: "/logout", icon: ArrowLeftEndOnRectangleIcon },
-  // ];
+  const links = [
+    { name: "Dashboard", href: "/dashboard", icon: ChartBarIcon },
+    {
+      name: "Transaction",
+      href: "/dashboard/transaction",
+      icon: CreditCardIcon,
+    },
+    { name: "Wallet", href: "/dashboard/wallet", icon: WalletIcon },
+    { name: "Analysis", href: "/dashboard/analysis", icon: ArrowTrendingUpIcon },
+    { name: "Settings", href: "/dashboard/settings", icon: Cog6ToothIcon },
 
-  // const pathname = usePathname();
+  ];
+
   return (
-    <div className="grid p-10 min-w-2/6 bg-space-cadet">
+    <div className="flex flex-col h-screen p-10 min-w-2/6 bg-black/30">
       <Image src="/logo.png" width={200} height={200} alt="Logo" />
-      <div className="grid max-h-full content-between tracking-wider text-lg">
-        <div className="flex flex-col gap-16 text-white text-center pb-20">
-          <div className="flex gap-2 items-center justify-center hover:scale-110 duration-200">
-            <ChartBarIcon className="h-6 w-6" />
-            <Link href="/dashboard">Dashboard</Link>
-          </div>
-          <div className="flex gap-2 items-center justify-center hover:scale-110 duration-200">
-            <CreditCardIcon className="h-6 w-6" />
-            <Link href="/dashboard/transaction">Transactions</Link>
-          </div>
-          <div className="flex gap-2 items-center justify-center hover:scale-110 duration-200">
-            <WalletIcon className="h-6 w-6" />
-            <Link href="/">Budget</Link>
-          </div>
-          <div className="flex gap-2 items-center justify-center hover:scale-110 duration-200">
-            <ArrowTrendingUpIcon className="h-6 w-6" />
-            <Link href="/">Analysis</Link>
-          </div>
-          <div className="flex gap-2 items-center justify-center hover:scale-110 duration-200">
-            <Cog6ToothIcon className="h-6 w-6" />
-            <Link href="/">Settings</Link>
-          </div>
-        </div>
-        <div className="flex items-center justify-center gap-2 text-white text-center">
+      <div className="flex flex-col mt-6 gap-8 max-h-full tracking-wider text-lg">
+        {links.map((link) => {
+          const LinkIcon = link.icon;
+          return (
+            <div key={link.name} className="flex text-white items-center justify-center">
+              <Link
+                key={link.name}
+                href={link.href}
+                className="flex gap-2 hover:scale-110 duration-200"
+              >
+                <LinkIcon className="h-6 w-6" />
+                <p className="font-bold">{link.name}</p>
+              </Link>
+            </div>
+          )
+        })}
+      </div>
+      <div className="flex pt-40 items-center justify-center">
+        <div className="flex hover:scale-110 duration-200 items-center justify-center gap-2 text-white text-center text-lg">
           <ArrowLeftEndOnRectangleIcon className="h-6 w-6" />
-          <Link href="/" className="hover:scale-110 duration-200">
+          <Link href="/" className="hover:scale-110 duration-200 font-bold">
             Log out
           </Link>
         </div>
       </div>
     </div>
+
   );
 }
